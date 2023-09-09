@@ -30,9 +30,7 @@ export const AuthProvider = ({ children }: any) => {
     setCarregando(true);
     signInWithEmailAndPassword(email, password)
       .then((response: any) => {
-        sessionStorage.setItem("@Auth:token", response.user.accessToken);
-        sessionStorage.setItem("@Auth:email", response.user.email);
-        sessionStorage.setItem("@Auth:usuario", response.user.uid);
+        console.log(response.uid);
         setUsuario(response);
         setCarregando(false);
       })
