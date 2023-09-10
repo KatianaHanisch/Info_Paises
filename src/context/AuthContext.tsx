@@ -26,11 +26,15 @@ export const AuthProvider = ({ children }: any) => {
 
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(getApp);
 
-  const signIn = ({ email, password }: SignInProps) => {
+  const signIn = async ({ email, password }: SignInProps) => {
     setCarregando(true);
     signInWithEmailAndPassword(email, password)
       .then((response: any) => {
-        setUsuario(response);
+        setUsuario(response.user);
+
+        AsyncStorage.setItem("@Auth:token", response.user.accessToken);
+        AsyncStorage.setItem("@Auth:uid", response.user.uid);
+
         setCarregando(false);
         setErro(true);
       })
@@ -39,11 +43,10 @@ export const AuthProvider = ({ children }: any) => {
         setCarregando(false);
         console.log(error);
       });
-    console.log(erro);
   };
 
   function singOut() {
-    sessionStorage.clear();
+    AsyncStorage.clear();
     setUsuario(null);
   }
 

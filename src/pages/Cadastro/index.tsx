@@ -83,6 +83,12 @@ export default function Cadastro() {
       return;
     }
 
+    if (telefone.length !== 15) {
+      setMensagemErro("Digite um número de telefone válido");
+      setAbrirSnackbar(true);
+      return;
+    }
+
     setCarregando(true);
 
     createUserWithEmailAndPassword(auth, email, password)
