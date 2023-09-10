@@ -26,6 +26,8 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [messagemErro, setMessagemErro] = useState("");
   const [abrirSnackbar, setAbrirSnackbar] = useState(false);
   const [tecladoVisivel, setTecladoVisivel] = useState(false);
 
@@ -35,7 +37,11 @@ export default function Login() {
   function handleLogin() {
     Keyboard.dismiss();
 
-    if (email === "" || password === "") return;
+    if (email === "" || password === "") {
+      setMessagemErro("É necessário preencher todos os campos");
+      setAbrirSnackbar(true);
+      return;
+    }
 
     signIn({ email, password });
   }
@@ -49,6 +55,8 @@ export default function Login() {
       setAbrirSnackbar(false);
       return;
     }
+
+    setMessagemErro("Email ou senha inválido!");
     setAbrirSnackbar(true);
 
     const timer = setTimeout(() => {
@@ -86,10 +94,9 @@ export default function Login() {
           onDismiss={fecharSnackbar}
           action={{
             label: "Fechar",
-            onPress: () => {},
           }}
         >
-          Email ou senha inválidos
+          {messagemErro}
         </Snackbar>
         <ContainerImage source={require("../../../assets/imgLogin.jpg")} />
         <ContainerItens>

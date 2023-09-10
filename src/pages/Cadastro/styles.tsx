@@ -1,5 +1,7 @@
 import styled from "styled-components/native";
 
+import MaskInput from "react-native-mask-input";
+
 export const Container = styled.View`
   flex: 1;
   width: 100%;
@@ -14,6 +16,7 @@ export const ContainerItens = styled.View`
   flex: 2.5;
   background-color: #f8f9fa;
   border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
   margin-top: -100px;
 `;
 
@@ -26,6 +29,16 @@ export const ContainerInputs = styled.View`
 `;
 
 export const Input = styled.TextInput`
+  background-color: #fefefe;
+  width: 90%;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 8px;
+  color: #535353;
+  border: 1px solid #d6d6d6;
+  margin-bottom: 15px;
+`;
+export const InputTelefone = styled(MaskInput)`
   background-color: #fefefe;
   width: 90%;
   font-size: 18px;

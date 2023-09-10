@@ -12,6 +12,7 @@ export const ContainerItens = styled.View`
   align-items: center;
   flex-direction: column;
   border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
   margin-top: -100px;
   background-color: #f8f9fa;
   padding-top: 40px;

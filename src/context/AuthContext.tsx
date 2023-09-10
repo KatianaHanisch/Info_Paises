@@ -30,15 +30,16 @@ export const AuthProvider = ({ children }: any) => {
     setCarregando(true);
     signInWithEmailAndPassword(email, password)
       .then((response: any) => {
-        console.log(response.uid);
         setUsuario(response);
         setCarregando(false);
+        setErro(true);
       })
       .catch((error) => {
         setErro(true);
         setCarregando(false);
         console.log(error);
       });
+    console.log(erro);
   };
 
   function singOut() {

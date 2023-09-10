@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
-import { StatusBar } from "react-native";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { ActivityIndicator, Keyboard, StatusBar } from "react-native";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { ActivityIndicator, Keyboard } from "react-native";
+import { dataBaseApp } from "../../services/firebaseConfig";
+import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
 
 import { Snackbar } from "react-native-paper";
 
@@ -15,6 +15,7 @@ import {
   HeaderCadastroLogo,
   ContainerInputs,
   Input,
+  InputTelefone,
   ButtonCadastro,
   TextButton,
   ButtonLogin,
@@ -29,40 +30,108 @@ export default function Cadastro() {
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [carregando, setCarregando] = useState(false);
-  const [abrirAlert, setAbrirAlert] = useState(false);
-  const [corSnackbar, setCorSnackbar] = useState("verde");
+  const [abrirSnackbar, setAbrirSnackbar] = useState(false);
+  const [criadoSucesso, setCriadoSucesso] = useState(false);
   const [tecladoVisivel, setTecladoVisivel] = useState(false);
+  const [messagemErro, setMensagemErro] = useState("");
 
   const navigation = useNavigation<NavigationProp<any>>();
 
   const auth = getAuth();
 
+  const maskTelefone = [
+    "(",
+    /\d/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+  ];
+
+  function verificaEmail(email: string) {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    return reg.test(email);
+  }
+
   function fecharSnackbar() {
-    setAbrirAlert(false);
+    setAbrirSnackbar(false);
   }
 
   async function criarCadastro() {
     Keyboard.dismiss();
 
+    if (nome === "" || telefone === "" || email === "" || password === "") {
+      setMensagemErro("É necessário preencher todos os campos");
+      setAbrirSnackbar(true);
+      return;
+    }
+
+    if (verificaEmail(email) === false) {
+      setMensagemErro("Digite um email válido");
+      setAbrirSnackbar(true);
+      return;
+    }
+
     setCarregando(true);
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((response) => {
-        console.log(response);
-        setAbrirAlert(true);
+        setCriadoSucesso(true);
+        setAbrirSnackbar(true);
         setCarregando(false);
+
+        salvarDadosBanco(response.user.uid);
 
         setTimeout(() => {
           navigation.navigate("Login");
         }, 2000);
       })
+
       .catch((error) => {
-        console.log(error);
-        setCorSnackbar("vermelho");
-        setAbrirAlert(true);
-        setCarregando(false);
+        if (error.code === "auth/email-already-in-use") {
+          setMensagemErro(
+            "Esse email já está sendo usado. Tente novamente com outro email"
+          );
+          setAbrirSnackbar(true);
+          setCarregando(false);
+        } else if (error.code === "auth/weak-password") {
+          setMensagemErro("A senha precisa ter no minímo 6 caracteres");
+          setAbrirSnackbar(true);
+          setCarregando(false);
+        } else {
+          setMensagemErro(
+            "Ocorreu um erro ao criar o cadastro. Tente novamente"
+          );
+          setAbrirSnackbar(true);
+          setCarregando(false);
+          console.log(error);
+        }
       });
+  }
+
+  async function salvarDadosBanco(uidUsuario: string) {
+    const dadosUsuarios = "DadosUsuario";
+    const usersCollection = collection(dataBaseApp, "users");
+    const userDoc = doc(usersCollection, uidUsuario);
+    const projetosCollection = collection(userDoc, dadosUsuarios);
+
+    await addDoc(projetosCollection, {
+      nome,
+      telefone,
+      email,
+      data: serverTimestamp(),
+    });
   }
 
   useEffect(() => {
@@ -84,21 +153,18 @@ export default function Cadastro() {
       <Container>
         <StatusBar backgroundColor="transparent" barStyle="light-content" />
         <Snackbar
-          wrapperStyle={{ top: 20 }}
+          wrapperStyle={{ top: 18 }}
           style={{
-            backgroundColor: corSnackbar === "verde" ? "#085f1d" : "#830319",
+            backgroundColor: criadoSucesso ? "#085f1d" : "#830319",
             zIndex: 10,
           }}
-          visible={abrirAlert}
+          visible={abrirSnackbar}
           onDismiss={fecharSnackbar}
           action={{
             label: "Fechar",
-            onPress: () => {},
           }}
         >
-          {corSnackbar === "verde"
-            ? "Cadastro criado com sucesso!"
-            : "Ocorreu um erro ao criar o cadastro"}
+          {criadoSucesso ? "Cadastro criado com sucesso!" : messagemErro}
         </Snackbar>
         <ContainerImage source={require("../../../assets/imgCadastro.jpg")} />
         <ContainerItens>
@@ -111,10 +177,14 @@ export default function Cadastro() {
               value={nome}
               onChangeText={(value) => setNome(value)}
             />
-            <Input
+            <InputTelefone
               placeholder="Digite seu telefone"
               value={telefone}
-              onChangeText={(value) => setTelefone(value)}
+              keyboardType="numeric"
+              onChangeText={(masked) => {
+                setTelefone(masked);
+              }}
+              mask={maskTelefone}
             />
             <Input
               placeholder="Digite seu email"
