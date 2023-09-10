@@ -3,7 +3,6 @@ import styled from "styled-components/native";
 export const Container = styled.View`
   flex: 1;
   width: 100%;
-  background: #eae6e5;
   align-items: center;
 `;
 
@@ -11,14 +10,19 @@ export const ContainerItens = styled.View`
   width: 100%;
   align-items: center;
   flex-direction: column;
-  padding: 50px 5px;
+  padding: 25px 0px;
+  flex: 2.5;
+  background-color: #f8f9fa;
+  border-top-left-radius: 50px;
+  margin-top: -100px;
 `;
 
-export const TextoHeaderLogin = styled.Text`
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #252525;
+export const HeaderCadastroLogo = styled.Image``;
+
+export const ContainerInputs = styled.View`
+  width: 100%;
+  align-items: center;
+  margin-top: 20px;
 `;
 
 export const Input = styled.TextInput`
@@ -27,18 +31,37 @@ export const Input = styled.TextInput`
   font-size: 18px;
   padding: 10px;
   border-radius: 8px;
-  color: #121212;
+  color: #535353;
+  border: 1px solid #d6d6d6;
   margin-bottom: 15px;
 `;
 
-export const Button = styled.TouchableOpacity`
+export const ButtonCadastro = styled.TouchableOpacity`
   padding: 10px;
   align-items: center;
-  background-color: white;
+  background-color: #354f52;
   width: 90%;
   border-radius: 8px;
 `;
 export const TextButton = styled.Text`
   font-size: 16px;
-  color: blue;
+  color: #f1f1f1;
+  font-weight: bold;
+`;
+
+export const ButtonLogin = styled.TouchableOpacity`
+  width: 100%;
+  align-items: center;
+  background: transparent;
+  margin-top: 10px;
+`;
+
+export const TextoButtonLogin = styled.Text`
+  font-size: 16px;
+  color: #555454;
+`;
+export const Span = styled.Text`
+  font-size: 16px;
+  color: #636262;
+  text-decoration: underline;
 `;

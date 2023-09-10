@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
+import Inicio from "../pages/Inicio";
 import Login from "../pages/Login";
 import Cadastro from "../pages/Cadastro";
 
@@ -8,13 +9,18 @@ const Stack = createStackNavigator();
 export default function StackNavigation() {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Inicio"
       screenOptions={{
-        headerMode: "screen",
-        headerTintColor: "black",
-        headerStyle: { backgroundColor: "transparent" },
+        headerShown: false,
       }}
     >
+      <Stack.Screen
+        name="Inicio"
+        component={Inicio}
+        options={{
+          title: "Inicio",
+        }}
+      />
       <Stack.Screen
         name="Login"
         component={Login}
