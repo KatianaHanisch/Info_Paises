@@ -1,11 +1,5 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
-  flex: 1;
-  width: 100%;
-  align-items: center;
-`;
-
 export const ContainerItens = styled.View`
   width: 100%;
   flex: 1.5;
@@ -40,6 +34,7 @@ export const Input = styled.TextInput`
 export const Button = styled.TouchableOpacity`
   padding: 10px;
   align-items: center;
+  justify-content: flex-start;
   background-color: #354f52;
   width: 90%;
   border-radius: 8px;

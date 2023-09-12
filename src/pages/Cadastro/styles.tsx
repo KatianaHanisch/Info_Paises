@@ -2,12 +2,6 @@ import styled from "styled-components/native";
 
 import MaskInput from "react-native-mask-input";
 
-export const Container = styled.View`
-  flex: 1;
-  width: 100%;
-  align-items: center;
-`;
-
 export const ContainerItens = styled.View`
   width: 100%;
   align-items: center;

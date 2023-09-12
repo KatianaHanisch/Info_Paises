@@ -7,7 +7,6 @@ import { Snackbar } from "react-native-paper";
 import { AuthContext } from "../../context/AuthContext";
 
 import {
-  Container,
   ContainerItens,
   HeaderLoginLogo,
   ContainerInputs,
@@ -19,7 +18,7 @@ import {
   Span,
 } from "./styles";
 
-import { ContainerImage } from "../../../styles";
+import { Container, ContainerImage } from "../../../styles";
 
 export default function Login() {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -27,7 +26,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [messagemErro, setMessagemErro] = useState("");
+  const [mensagemErro, setMensagemErro] = useState("");
   const [abrirSnackbar, setAbrirSnackbar] = useState(false);
   const [tecladoVisivel, setTecladoVisivel] = useState(false);
 
@@ -38,7 +37,7 @@ export default function Login() {
     Keyboard.dismiss();
 
     if (email === "" || password === "") {
-      setMessagemErro("É necessário preencher todos os campos");
+      setMensagemErro("É necessário preencher todos os campos");
       setAbrirSnackbar(true);
       return;
     }
@@ -56,7 +55,7 @@ export default function Login() {
       return;
     }
 
-    setMessagemErro("Email ou senha inválido!");
+    setMensagemErro("Email ou senha inválido!");
     setAbrirSnackbar(true);
 
     const timer = setTimeout(() => {
@@ -96,7 +95,7 @@ export default function Login() {
             label: "Fechar",
           }}
         >
-          {messagemErro}
+          {mensagemErro}
         </Snackbar>
         <ContainerImage source={require("../../../assets/imgLogin.jpg")} />
         <ContainerItens>

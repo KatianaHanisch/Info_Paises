@@ -10,7 +10,6 @@ import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
 import { Snackbar } from "react-native-paper";
 
 import {
-  Container,
   ContainerItens,
   HeaderCadastroLogo,
   ContainerInputs,
@@ -23,7 +22,7 @@ import {
   Span,
 } from "./styles";
 
-import { ContainerImage } from "../../../styles";
+import { Container, ContainerImage } from "../../../styles";
 
 export default function Cadastro() {
   const [nome, setNome] = useState("");
