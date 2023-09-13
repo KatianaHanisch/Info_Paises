@@ -1,5 +1,7 @@
 import styled from "styled-components/native";
 
+export const ButtonContainer = styled.TouchableOpacity``;
+
 export const ContainerItem = styled.View`
   margin: 8px 0;
   flex-direction: row;
