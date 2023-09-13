@@ -1,12 +1,15 @@
 import { DadosPaisesProps } from "../../types/DadosPaisesProps";
 
+import { Ionicons } from "@expo/vector-icons";
+
 import {
   ContainerItem,
   ContainerImage,
   Image,
   ContainerTextos,
   TituloItem,
-  SubtituloInformacoes,
+  TextoLocalizacao,
+  ContainerLocalizacao,
 } from "./styles";
 
 type Props = {
@@ -21,7 +24,10 @@ export default function ItemLista({ dados }: Props) {
       </ContainerImage>
       <ContainerTextos>
         <TituloItem>{dados.name.common}</TituloItem>
-        <SubtituloInformacoes></SubtituloInformacoes>
+        <ContainerLocalizacao>
+          <Ionicons name="ios-location-outline" size={20} color="#4f4f4f" />
+          <TextoLocalizacao>{dados.region}</TextoLocalizacao>
+        </ContainerLocalizacao>
       </ContainerTextos>
     </ContainerItem>
   );

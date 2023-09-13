@@ -7,4 +7,6 @@ export type DadosPaisesProps = {
   };
   languages: string;
   population: number;
+  capital: string;
+  region: string;
 };

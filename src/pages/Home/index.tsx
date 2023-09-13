@@ -23,18 +23,18 @@ import { ContainerLista, ContainerButton, Button, TextButton } from "./styles";
 export default function Home() {
   const [dados, setDados] = useState<DadosPaisesProps[]>([]);
   const [carregandoAplicacao, setCarregandoAplicacao] = useState(true);
-  const [limitePaises, setLimitePaises] = useState(20);
-  const [carregando, setCarregando] = useState(false);
-  const [tecladoVisivel, setTecladoVisivel] = useState(false);
-  const [abrirSnackbar, setAbrirSnackbar] = useState(false);
   const [mensagemErro, setMensagemErro] = useState("");
+  const [carregando, setCarregando] = useState(false);
+  const [limitePaises, setLimitePaises] = useState(20);
+  const [abrirSnackbar, setAbrirSnackbar] = useState(false);
+  const [tecladoVisivel, setTecladoVisivel] = useState(false);
 
   const paisesExibidos = dados.slice(0, limitePaises);
 
   async function getDados() {
     try {
       const { data } = await api.get(
-        `/all?fields=name,languages,flags,population`
+        `/all?fields=name,languages,flags,population,region,capital`
       );
 
       setDados(data);
@@ -61,22 +61,21 @@ export default function Home() {
     }
   }
 
-  const handleCarregarMais = () => {
+  const carregarMaisPaises = () => {
     setLimitePaises(limitePaises + 20);
   };
 
   function fecharSnackbar() {
     setAbrirSnackbar(false);
   }
+
   function openSnackbar() {
     setAbrirSnackbar(true);
   }
 
   useEffect(() => {
     getDados();
-  }, []);
 
-  useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
       setTecladoVisivel(true);
     });
@@ -93,7 +92,7 @@ export default function Home() {
   if (carregandoAplicacao) {
     return (
       <Container>
-        <ActivityIndicator color={"#2a6041"} size={55} />
+        <ActivityIndicator color={"#354f52"} size={55} />
       </Container>
     );
   } else {
@@ -122,7 +121,7 @@ export default function Home() {
         />
         <ContainerLista>
           {carregando ? (
-            <ActivityIndicator color={"#2a6041"} size={55} />
+            <ActivityIndicator color={"#354f52"} size={55} />
           ) : (
             <>
               <FlatList
@@ -135,7 +134,7 @@ export default function Home() {
                 <>
                   {limitePaises < dados.length && carregando === false ? (
                     <ContainerButton>
-                      <Button onPress={handleCarregarMais}>
+                      <Button onPress={carregarMaisPaises}>
                         <TextButton>Mostrar mais</TextButton>
                       </Button>
                     </ContainerButton>

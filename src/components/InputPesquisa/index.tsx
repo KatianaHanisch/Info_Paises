@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { InputPesquisaProps } from "../../types//InputPesquisaProps";
+
 import { Ionicons } from "@expo/vector-icons";
 
 import {
@@ -9,12 +11,6 @@ import {
   Button,
   TextButton,
 } from "./styles";
-
-type InputPesquisaProps = {
-  getDadosPais: (nomePais: string) => void;
-  abrirSnackbar: () => void;
-  mensagemErro: (mensagem: string) => void;
-};
 
 export default function InputPesquisa({
   getDadosPais,
