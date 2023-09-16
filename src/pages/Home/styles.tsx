@@ -9,7 +9,7 @@ export const ContainerLista = styled.View`
 `;
 
 export const ContainerButton = styled.View`
-  margin: 10px;
+  margin: 10px 0;
   width: 100%;
   align-items: center;
 `;

@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: any) => {
         AsyncStorage.setItem("@Auth:uid", response.user.uid);
 
         setCarregando(false);
-        setErro(true);
+        setErro(false);
       })
       .catch((error) => {
         setErro(true);

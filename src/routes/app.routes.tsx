@@ -40,18 +40,6 @@ export default function TabNavigation() {
         }}
       />
       <Tab.Screen
-        name="Busca"
-        component={Busca}
-        options={{
-          tabBarIcon: ({ color, focused }) => {
-            if (focused) {
-              return <Ionicons name="search" size={24} color={color} />;
-            }
-            return <Ionicons name="search-outline" size={24} color={color} />;
-          },
-        }}
-      />
-      <Tab.Screen
         name="Usuario"
         component={Usuario}
         options={{
