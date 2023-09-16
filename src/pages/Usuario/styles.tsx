@@ -17,6 +17,13 @@ export const ContainerUsuario = styled.View`
   padding: 30px 20px;
 `;
 
+export const ContainerCarregando = styled.View`
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const ContainerIcone = styled.View`
   width: 100%;
   align-items: center;

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import { StatusBar } from "react-native";
+import { StatusBar, ActivityIndicator } from "react-native";
 
 import { AuthContext } from "../../context/AuthContext";
 
@@ -27,6 +27,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import {
   Container,
   ContainerUsuario,
+  ContainerCarregando,
   ContainerIcone,
   Linha,
   ContainerInformacoesUsuario,
@@ -48,12 +49,13 @@ export default function Usuario() {
   const [informacoesUsuario, setInformacoesUsuario] =
     useState<DadosUsuario | null>(null);
   const [imagem, setImagem] = useState<string | null>(null);
+  const [carregando, setCarregando] = useState(false);
+
+  const apiKey = process.env.EXPO_PUBLIC_API_KEY;
 
   const { singOut } = useContext(AuthContext);
 
   const uidUsuarioPromise: Promise<string | null> = obterUidUsuario();
-
-  const apiKey = process.env.EXPO_PUBLIC_API_KEY;
 
   async function obterUidUsuario(): Promise<string | null> {
     try {
@@ -87,6 +89,7 @@ export default function Usuario() {
   }
 
   async function getInformacoesUsuario(): Promise<void> {
+    setCarregando(true);
     try {
       const uidUsuario = await uidUsuarioPromise;
       if (uidUsuario !== null) {
@@ -97,6 +100,7 @@ export default function Usuario() {
     } catch (error) {
       console.error("Erro:", error);
     }
+    setCarregando(false);
   }
 
   async function getImagem() {
@@ -134,29 +138,41 @@ export default function Usuario() {
         }
       >
         <ContainerUsuario>
-          <ContainerIcone>
-            <FontAwesome name="user-circle-o" size={48} color="#3b3b3b" />
-          </ContainerIcone>
-          <ContainerInformacoesUsuario>
-            <LabelUsuario>Nome</LabelUsuario>
-            <InformacoesUsuario>{informacoesUsuario?.nome}</InformacoesUsuario>
-            <Linha />
-            <LabelUsuario>Email</LabelUsuario>
-            <InformacoesUsuario>{informacoesUsuario?.email}</InformacoesUsuario>
-            <Linha />
-            <LabelUsuario>Telefone</LabelUsuario>
-            <InformacoesUsuario>
-              {informacoesUsuario?.telefone}
-            </InformacoesUsuario>
-            <Linha />
-            <Button onPress={singOut}>
-              <ContainerTextoButton>
-                <Octicons name="sign-out" size={22} color="#830319" />
-                <TextoButton>Sair</TextoButton>
-              </ContainerTextoButton>
-              <EvilIcons name="chevron-right" size={28} color="#505050" />
-            </Button>
-          </ContainerInformacoesUsuario>
+          {carregando ? (
+            <ContainerCarregando>
+              <ActivityIndicator color={"#354f52"} size={55} />
+            </ContainerCarregando>
+          ) : (
+            <>
+              <ContainerIcone>
+                <FontAwesome name="user-circle-o" size={48} color="#3b3b3b" />
+              </ContainerIcone>
+              <ContainerInformacoesUsuario>
+                <LabelUsuario>Nome</LabelUsuario>
+                <InformacoesUsuario>
+                  {informacoesUsuario?.nome}
+                </InformacoesUsuario>
+                <Linha />
+                <LabelUsuario>Email</LabelUsuario>
+                <InformacoesUsuario>
+                  {informacoesUsuario?.email}
+                </InformacoesUsuario>
+                <Linha />
+                <LabelUsuario>Telefone</LabelUsuario>
+                <InformacoesUsuario>
+                  {informacoesUsuario?.telefone}
+                </InformacoesUsuario>
+                <Linha />
+                <Button onPress={singOut}>
+                  <ContainerTextoButton>
+                    <Octicons name="sign-out" size={22} color="#830319" />
+                    <TextoButton>Sair</TextoButton>
+                  </ContainerTextoButton>
+                  <EvilIcons name="chevron-right" size={28} color="#505050" />
+                </Button>
+              </ContainerInformacoesUsuario>
+            </>
+          )}
         </ContainerUsuario>
       </Container>
     </>
