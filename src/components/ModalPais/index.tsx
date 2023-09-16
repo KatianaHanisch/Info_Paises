@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { StatusBar } from "react-native";
-
 import { DadosPaisesProps } from "../../types/DadosPaisesProps";
 
 import { apiUnsplash } from "../../services/apiUnsplash";
@@ -11,31 +9,38 @@ import { Feather } from "@expo/vector-icons";
 import {
   ContainerModal,
   ContainerImage,
+  Image,
   ContainerIcone,
+  ContainerTextos,
   TituloModal,
 } from "./styles";
-
-type ImagemProps = {
-  id: string;
-};
 
 type ModalProps = {
   abrirModal: () => void;
   dados: DadosPaisesProps;
+  nomePais: string;
 };
 
-export default function ModalPais({ abrirModal, dados }: ModalProps) {
-  const [imagens, setImagens] = useState<ImagemProps[]>([]);
+export default function ModalPais({ abrirModal, dados, nomePais }: ModalProps) {
+  const [imagem, setImagem] = useState<string | null>(null);
 
-  async function getDados() {
+  const apiKey = process.env.EXPO_PUBLIC_API_KEY;
+
+  async function getImagem() {
     try {
       const { data } = await apiUnsplash.get(
-        `search/photos?page=1&query=andorra&client_id=d9xBFDpkW7nxfSG16oBziZTRgwr8fFoZ1tNFjBtgoLA`
+        `search/photos?page=1&query=canada&client_id=${apiKey}`
       );
+      // const { data } = await apiUnsplash.get(
+      //   `search/photos?page=1&query=${nomePais}&client_id=${apiKey}`
+      // );
 
       const results = data.results;
 
-      setImagens(results);
+      const randomIndex = Math.floor(Math.random() * results.length);
+
+      setImagem(results[randomIndex]?.urls.regular || null);
+
       //   setCarregandoAplicacao(false);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
@@ -44,20 +49,20 @@ export default function ModalPais({ abrirModal, dados }: ModalProps) {
   }
 
   useEffect(() => {
-    getDados();
+    getImagem();
   }, []);
+
   return (
     <ContainerModal>
-      <StatusBar backgroundColor="transparent" barStyle={"light-content"} />
       <ContainerImage>
+        {imagem && <Image source={{ uri: imagem }} />}
         <ContainerIcone onPress={abrirModal}>
-          <Feather name="arrow-left" size={24} color="#38302e" />
+          <Feather name="arrow-left" size={26} color="#252525" />
         </ContainerIcone>
       </ContainerImage>
-      <TituloModal>{dados.name.common}</TituloModal>
-      {imagens.map((imagem) => (
-        <TituloModal key={imagem.id}>{imagem.id}</TituloModal>
-      ))}
+      <ContainerTextos>
+        <TituloModal>{dados.name.common}</TituloModal>
+      </ContainerTextos>
     </ContainerModal>
   );
 }

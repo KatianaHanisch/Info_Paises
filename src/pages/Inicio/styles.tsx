@@ -20,7 +20,7 @@ export const ContainerTextos = styled.View`
 export const TituloInicio = styled.Text`
   font-size: 28px;
   font-weight: bold;
-  color: #252525;
+  color: #38302e;
 `;
 
 export const SubtituloInicio = styled.Text`

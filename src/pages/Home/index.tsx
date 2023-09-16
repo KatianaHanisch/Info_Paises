@@ -31,6 +31,12 @@ export default function Home() {
 
   const paisesExibidos = dados.slice(0, limitePaises);
 
+  const [abrirModalPais, setAbrirModalPais] = useState(false);
+
+  function abrirModalDetalhesPais() {
+    setAbrirModalPais(!abrirModalPais);
+  }
+
   async function getDados() {
     try {
       const { data } = await api.get(
@@ -98,7 +104,10 @@ export default function Home() {
   } else {
     return (
       <Container>
-        <StatusBar backgroundColor="#f1f1f1" barStyle="dark-content" />
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle={abrirModalPais ? "light-content" : "dark-content"}
+        />
         <Snackbar
           wrapperStyle={{ top: 20 }}
           style={{
@@ -127,9 +136,23 @@ export default function Home() {
               <FlatList
                 style={styles.flatListStyle}
                 data={paisesExibidos}
-                renderItem={({ item }) => <ItemLista dados={item} />}
+                renderItem={({ item }) => (
+                  <ItemLista
+                    dados={item}
+                    abrirModalDetalhesPais={abrirModalDetalhesPais}
+                    abrirModalPais={abrirModalPais}
+                  />
+                )}
                 keyExtractor={(item) => item.name.common}
               />
+              {/* {paisesExibidos.map((pais, index) => (
+                <ItemLista
+                  dados={pais}
+                  abrirModalDetalhesPais={abrirModalDetalhesPais}
+                  abrirModalPais={abrirModalPais}
+                  key={index}
+                />
+              ))} */}
               {tecladoVisivel ? null : (
                 <>
                   {limitePaises < dados.length && carregando === false ? (
