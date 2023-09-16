@@ -105,8 +105,9 @@ export default function Home() {
     return (
       <Container>
         <StatusBar
-          backgroundColor="transparent"
+          backgroundColor={abrirModalPais ? " rgba(0, 0, 0, 0.2)" : "#f1f1f1"}
           barStyle={abrirModalPais ? "light-content" : "dark-content"}
+          translucent={true}
         />
         <Snackbar
           wrapperStyle={{ top: 20 }}

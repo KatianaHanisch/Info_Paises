@@ -1,10 +1,11 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.ImageBackground`
   flex: 1;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  background-color: #cce3de;
 `;
 
 export const ContainerUsuario = styled.View`
@@ -21,13 +22,6 @@ export const ContainerIcone = styled.View`
   align-items: center;
   padding: 5px;
   margin-bottom: 5px;
-`;
-
-export const TituloUsuario = styled.Text`
-  font-size: 20px;
-  text-transform: capitalize;
-  color: #3b3b3b;
-  margin-bottom: 15px;
 `;
 
 export const Linha = styled.View`
