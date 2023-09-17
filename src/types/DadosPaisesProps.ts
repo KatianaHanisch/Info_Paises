@@ -5,8 +5,10 @@ export type DadosPaisesProps = {
   name: {
     common: string;
   };
-  languages: string;
   population: number;
   capital: string;
-  region: string;
+  continents: string;
+  currencies: string;
+  area: number;
+  languages: string;
 };

@@ -13,22 +13,10 @@ import {
 } from "./styles";
 
 export default function InputPesquisa({
-  getDadosPais,
-  abrirSnackbar,
-  mensagemErro,
+  input,
+  setInput,
+  handleBuscarPais,
 }: InputPesquisaProps) {
-  const [input, setInput] = useState("");
-
-  const handleBuscarPais = () => {
-    if (input.length < 3) {
-      abrirSnackbar();
-      mensagemErro("Digite mais de duas letras para prosseguir a pesquisa");
-      return;
-    }
-
-    getDadosPais(input);
-  };
-
   return (
     <>
       <Container>
@@ -37,6 +25,7 @@ export default function InputPesquisa({
           placeholder="Digite o nome do pais que busca"
           onChangeText={(text) => setInput(text)}
           onSubmitEditing={handleBuscarPais}
+          value={input}
         />
       </Container>
       <ContainerButton>

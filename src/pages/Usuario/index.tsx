@@ -27,7 +27,6 @@ import { EvilIcons } from "@expo/vector-icons";
 import {
   Container,
   ContainerUsuario,
-  ContainerCarregando,
   ContainerIcone,
   Linha,
   ContainerInformacoesUsuario,
@@ -37,6 +36,8 @@ import {
   ContainerTextoButton,
   TextoButton,
 } from "./styles";
+
+import { ContainerCarregando } from "../../../styles";
 
 interface DadosUsuario {
   nome: string;
@@ -51,7 +52,7 @@ export default function Usuario() {
   const [imagem, setImagem] = useState<string | null>(null);
   const [carregando, setCarregando] = useState(false);
 
-  const apiKey = process.env.EXPO_PUBLIC_API_KEY;
+  const apiKey = process.env.EXPO_PUBLIC_API_KEY_UNSPLASH;
 
   const { singOut } = useContext(AuthContext);
 

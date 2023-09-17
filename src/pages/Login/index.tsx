@@ -19,6 +19,7 @@ import {
 } from "./styles";
 
 import { Container, ContainerImage } from "../../../styles";
+import { off } from "process";
 
 export default function Login() {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -107,6 +108,7 @@ export default function Login() {
               placeholder="Digite seu email"
               value={email}
               onChangeText={(value) => setEmail(value)}
+              autoComplete="off"
             />
             <Input
               placeholder="Digite sua senha"

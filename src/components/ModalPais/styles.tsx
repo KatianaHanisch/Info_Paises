@@ -5,7 +5,7 @@ export const ContainerModal = styled.View`
   width: 100%;
   height: 100%;
   align-items: center;
-  /* padding: 30px 20px; */
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 export const ContainerImage = styled.View`
@@ -32,7 +32,7 @@ export const ContainerTextos = styled.View`
   background-color: #f1f1f1;
   flex: 4;
   width: 100%;
-  margin-top: -40px;
+  margin-top: -30px;
   border-top-right-radius: 35px;
   border-top-left-radius: 35px;
   padding: 20px 10px;
@@ -41,6 +41,53 @@ export const ContainerTextos = styled.View`
 `;
 
 export const TituloModal = styled.Text`
-  font-size: 25px;
+  font-size: 28px;
   color: #38302e;
+`;
+
+export const ContainerInformacoes = styled.View`
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  margin: 10px 0;
+`;
+
+export const Separador = styled.View`
+  height: 50px;
+  width: 1px;
+  background-color: #d6d6d6;
+`;
+
+export const ContainerItem = styled.View`
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const LabelInformacoes = styled.Text`
+  font-size: 14px;
+  color: #9b9b9b;
+  margin: 2px 0;
+`;
+
+export const InformacaoTexto = styled.Text`
+  font-size: 16px;
+  color: #3d3d3d;
+`;
+
+export const ContainerLinguagem = styled.View`
+  flex-direction: row;
+  margin-top: 10px;
+  width: 100%;
+  justify-content: space-around;
+`;
+
+export const ContainerItemLinguagem = styled.View`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #354f52;
+  width: 48%;
+  padding: 10px;
+  border-radius: 10px;
 `;

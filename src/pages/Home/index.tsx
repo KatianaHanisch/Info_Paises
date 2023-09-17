@@ -6,6 +6,8 @@ import {
   StatusBar,
   StyleSheet,
   Keyboard,
+  TouchableOpacity,
+  Modal,
 } from "react-native";
 
 import { api } from "../../services/api";
@@ -14,6 +16,7 @@ import { DadosPaisesProps } from "../../types/DadosPaisesProps";
 
 import ItemLista from "../../components/ItemLista";
 import InputPesquisa from "../../components/InputPesquisa";
+import ModalPais from "../../components/ModalPais";
 
 import { Snackbar } from "react-native-paper";
 
@@ -28,37 +31,53 @@ export default function Home() {
   const [limitePaises, setLimitePaises] = useState(20);
   const [abrirSnackbar, setAbrirSnackbar] = useState(false);
   const [tecladoVisivel, setTecladoVisivel] = useState(false);
+  const [visualizandoPesquisa, setVisualizandoPesquisa] = useState(false);
 
   const paisesExibidos = dados.slice(0, limitePaises);
 
   const [abrirModalPais, setAbrirModalPais] = useState(false);
+  const [input, setInput] = useState("");
 
-  function abrirModalDetalhesPais() {
-    setAbrirModalPais(!abrirModalPais);
+  const [paisSelecionado, setPaisSelecionado] = useState<DadosPaisesProps>(
+    {} as DadosPaisesProps
+  );
+
+  async function selecionaPais(pais: DadosPaisesProps) {
+    setPaisSelecionado(pais);
+    setAbrirModalPais(true);
+  }
+
+  function mostrarTodosPaises() {
+    setVisualizandoPesquisa(false);
+    getDados();
   }
 
   async function getDados() {
     try {
       const { data } = await api.get(
-        `/all?fields=name,languages,flags,population,region,capital`
+        `/all?fields=name,capital,currencies,languages,flags,population,continents,area`
       );
 
       setDados(data);
       setCarregandoAplicacao(false);
+      setVisualizandoPesquisa(false);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
-      setCarregandoAplicacao(false);
     }
   }
 
   async function getDadosPais(nomePais: string): Promise<void> {
     Keyboard.dismiss();
+
+    setInput("");
+
     setCarregando(true);
 
     try {
       const { data } = await api.get(`/name/${nomePais}`);
       setDados(data);
       setCarregando(false);
+      setVisualizandoPesquisa(true);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
       setMensagemErro("Não foi possível encontrar o país buscado");
@@ -67,16 +86,22 @@ export default function Home() {
     }
   }
 
+  const handleBuscarPais = () => {
+    if (input.length < 3) {
+      setAbrirSnackbar(true);
+      setMensagemErro("Digite mais de duas letras para prosseguir a pesquisa");
+      return;
+    }
+
+    getDadosPais(input);
+  };
+
   const carregarMaisPaises = () => {
     setLimitePaises(limitePaises + 20);
   };
 
   function fecharSnackbar() {
     setAbrirSnackbar(false);
-  }
-
-  function openSnackbar() {
-    setAbrirSnackbar(true);
   }
 
   useEffect(() => {
@@ -105,7 +130,9 @@ export default function Home() {
     return (
       <Container>
         <StatusBar
-          backgroundColor={abrirModalPais ? " rgba(0, 0, 0, 0.2)" : "#f1f1f1"}
+          backgroundColor={
+            abrirModalPais ? " rgba(0, 0, 0, 0.2)" : "transparent"
+          }
           barStyle={abrirModalPais ? "light-content" : "dark-content"}
           translucent={true}
         />
@@ -125,9 +152,9 @@ export default function Home() {
           {mensagemErro}
         </Snackbar>
         <InputPesquisa
-          getDadosPais={getDadosPais}
-          mensagemErro={setMensagemErro}
-          abrirSnackbar={openSnackbar}
+          setInput={setInput}
+          input={input}
+          handleBuscarPais={handleBuscarPais}
         />
         <ContainerLista>
           {carregando ? (
@@ -138,28 +165,29 @@ export default function Home() {
                 style={styles.flatListStyle}
                 data={paisesExibidos}
                 renderItem={({ item }) => (
-                  <ItemLista
-                    dados={item}
-                    abrirModalDetalhesPais={abrirModalDetalhesPais}
-                    abrirModalPais={abrirModalPais}
-                  />
+                  <ItemLista dados={item} selecionaPais={selecionaPais} />
                 )}
                 keyExtractor={(item) => item.name.common}
               />
-              {/* {paisesExibidos.map((pais, index) => (
-                <ItemLista
-                  dados={pais}
-                  abrirModalDetalhesPais={abrirModalDetalhesPais}
-                  abrirModalPais={abrirModalPais}
-                  key={index}
-                />
-              ))} */}
+
+              {tecladoVisivel ? null : (
+                <>
+                  {visualizandoPesquisa && (
+                    <ContainerButton>
+                      <Button onPress={mostrarTodosPaises}>
+                        <TextButton>Voltar</TextButton>
+                      </Button>
+                    </ContainerButton>
+                  )}
+                </>
+              )}
+
               {tecladoVisivel ? null : (
                 <>
                   {limitePaises < dados.length && carregando === false ? (
                     <ContainerButton>
                       <Button onPress={carregarMaisPaises}>
-                        <TextButton>Mostrar mais</TextButton>
+                        <TextButton>Mostrar Mais</TextButton>
                       </Button>
                     </ContainerButton>
                   ) : null}
@@ -168,6 +196,17 @@ export default function Home() {
             </>
           )}
         </ContainerLista>
+        <Modal
+          statusBarTranslucent={true}
+          visible={abrirModalPais}
+          transparent={true}
+          animationType="slide"
+        >
+          <ModalPais
+            dados={paisSelecionado}
+            closeModal={() => setAbrirModalPais(false)}
+          />
+        </Modal>
       </Container>
     );
   }
