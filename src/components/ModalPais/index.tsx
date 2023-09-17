@@ -189,20 +189,17 @@ export default function ModalPais({ dados, closeModal }: ModalProps) {
             <LabelInformacoes>capital</LabelInformacoes>
             <InformacaoTexto>{formattedCapitals}</InformacaoTexto>
           </ContainerItemLinguagem>
-
-          {temperatura === "" ? null : (
-            <ContainerItemLinguagem>
-              <MaterialCommunityIcons
-                name="temperature-celsius"
-                size={28}
-                color="#5e5d5d"
-              />
-              <LabelInformacoes>temperatura</LabelInformacoes>
-              <InformacaoTexto>
-                {temperatura === "" ? null : `${temperatura}°`}
-              </InformacaoTexto>
-            </ContainerItemLinguagem>
-          )}
+          <ContainerItemLinguagem>
+            <MaterialCommunityIcons
+              name="temperature-celsius"
+              size={28}
+              color="#5e5d5d"
+            />
+            <LabelInformacoes>temperatura</LabelInformacoes>
+            <InformacaoTexto>
+              {temperatura === "não encontrado" ? null : `${temperatura}°`}
+            </InformacaoTexto>
+          </ContainerItemLinguagem>
         </ContainerLinguagem>
       </ContainerTextos>
     </ContainerModal>
