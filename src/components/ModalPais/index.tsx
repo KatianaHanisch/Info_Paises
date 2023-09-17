@@ -103,7 +103,7 @@ export default function ModalPais({ dados, closeModal }: ModalProps) {
 
       setImagem(results[randomIndex]?.urls.regular || null);
     } catch (error) {
-      console.error("Erro ao buscar dados:", error);
+      console.error("Erro ao buscar imagem:", error);
     }
   }
 
