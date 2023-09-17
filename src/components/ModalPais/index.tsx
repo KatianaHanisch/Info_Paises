@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { Keyboard } from "react-native";
-
 import { DadosPaisesProps } from "../../types/DadosPaisesProps";
 
 import { apiUnsplash } from "../../services/apiUnsplash";
@@ -173,19 +171,19 @@ export default function ModalPais({ dados, closeModal }: ModalProps) {
         </ContainerInformacoes>
         <ContainerLinguagem>
           <ContainerItemLinguagem>
-            <AntDesign name="team" size={28} color="#5e5d5d" />
+            <AntDesign name="team" size={28} color="#555555" />
             <LabelInformacoes>idioma</LabelInformacoes>
             <InformacaoTexto>{formattedLanguages}</InformacaoTexto>
           </ContainerItemLinguagem>
           <ContainerItemLinguagem>
-            <FontAwesome5 name="coins" size={24} color="#5e5d5d" />
+            <FontAwesome5 name="coins" size={24} color="#555555" />
             <LabelInformacoes>moeda</LabelInformacoes>
             <InformacaoTexto>{formattedCurrencies}</InformacaoTexto>
           </ContainerItemLinguagem>
         </ContainerLinguagem>
         <ContainerLinguagem>
           <ContainerItemLinguagem>
-            <MaterialIcons name="location-city" size={28} color="#5e5d5d" />
+            <MaterialIcons name="location-city" size={28} color="#555555" />
             <LabelInformacoes>capital</LabelInformacoes>
             <InformacaoTexto>{formattedCapitals}</InformacaoTexto>
           </ContainerItemLinguagem>
@@ -193,11 +191,11 @@ export default function ModalPais({ dados, closeModal }: ModalProps) {
             <MaterialCommunityIcons
               name="temperature-celsius"
               size={28}
-              color="#5e5d5d"
+              color="#555555"
             />
             <LabelInformacoes>temperatura</LabelInformacoes>
             <InformacaoTexto>
-              {temperatura === "não encontrado" ? null : `${temperatura}°`}
+              {temperatura === "" ? "não encontrado" : `${temperatura}°`}
             </InformacaoTexto>
           </ContainerItemLinguagem>
         </ContainerLinguagem>

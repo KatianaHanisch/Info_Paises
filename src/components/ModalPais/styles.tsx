@@ -5,7 +5,7 @@ export const ContainerModal = styled.View`
   width: 100%;
   height: 100%;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 export const ContainerImage = styled.View`
@@ -21,7 +21,7 @@ export const Image = styled.ImageBackground`
 
 export const ContainerIcone = styled.TouchableOpacity`
   padding: 5px;
-  background-color: #bcbcbc;
+  background-color: #f0f0f0;
   position: absolute;
   border-radius: 50px;
   align-items: center;
@@ -42,7 +42,7 @@ export const ContainerTextos = styled.View`
 
 export const TituloModal = styled.Text`
   font-size: 28px;
-  color: #38302e;
+  color: #3d3d3d;
 `;
 
 export const ContainerInformacoes = styled.View`
@@ -65,9 +65,9 @@ export const ContainerItem = styled.View`
 `;
 
 export const LabelInformacoes = styled.Text`
-  font-size: 14px;
-  color: #9b9b9b;
-  margin: 2px 0;
+  font-size: 13px;
+  color: #7f7f7f;
+  margin-bottom: 2px;
 `;
 
 export const InformacaoTexto = styled.Text`
@@ -86,7 +86,7 @@ export const ContainerItemLinguagem = styled.View`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #354f52;
+  border: 1px solid #d6d6d6;
   width: 48%;
   padding: 10px;
   border-radius: 10px;

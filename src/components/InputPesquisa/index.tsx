@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { InputPesquisaProps } from "../../types//InputPesquisaProps";
 
 import { Ionicons } from "@expo/vector-icons";

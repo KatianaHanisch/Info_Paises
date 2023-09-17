@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { ActivityIndicator, Keyboard, StatusBar } from "react-native";
+
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { dataBaseApp } from "../../services/firebaseConfig";

@@ -6,21 +6,20 @@ import {
   StatusBar,
   StyleSheet,
   Keyboard,
-  TouchableOpacity,
   Modal,
 } from "react-native";
 
+import { DadosPaisesProps } from "../../types/DadosPaisesProps";
+
 import { api } from "../../services/api";
 
-import { DadosPaisesProps } from "../../types/DadosPaisesProps";
+import { Snackbar } from "react-native-paper";
 
 import ItemLista from "../../components/ItemLista";
 import InputPesquisa from "../../components/InputPesquisa";
 import ModalPais from "../../components/ModalPais";
 
-import { Snackbar } from "react-native-paper";
-
-import { Container } from "../../../styles";
+import { Container, ContainerCarregando } from "../../../styles";
 import { ContainerLista, ContainerButton, Button, TextButton } from "./styles";
 
 export default function Home() {
@@ -122,9 +121,9 @@ export default function Home() {
 
   if (carregandoAplicacao) {
     return (
-      <Container>
+      <ContainerCarregando>
         <ActivityIndicator color={"#354f52"} size={55} />
-      </Container>
+      </ContainerCarregando>
     );
   } else {
     return (
@@ -158,7 +157,9 @@ export default function Home() {
         />
         <ContainerLista>
           {carregando ? (
-            <ActivityIndicator color={"#354f52"} size={55} />
+            <ContainerCarregando>
+              <ActivityIndicator color={"#354f52"} size={55} />
+            </ContainerCarregando>
           ) : (
             <>
               <FlatList
@@ -181,7 +182,6 @@ export default function Home() {
                   )}
                 </>
               )}
-
               {tecladoVisivel ? null : (
                 <>
                   {limitePaises < dados.length && carregando === false ? (

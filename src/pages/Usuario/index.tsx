@@ -19,9 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { apiUnsplash } from "../../services/apiUnsplash";
 
 import { FontAwesome } from "@expo/vector-icons";
-
 import { Octicons } from "@expo/vector-icons";
-
 import { EvilIcons } from "@expo/vector-icons";
 
 import {

@@ -5,7 +5,6 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import Home from "../pages/Home";
 import Usuario from "../pages/Usuario";
-import Busca from "../pages/Busca";
 
 const Tab = createBottomTabNavigator();
 
