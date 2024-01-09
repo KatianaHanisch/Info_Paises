@@ -1,4 +1,4 @@
-# Atividade N1
+# Info Países
 
 <div align="center">
   <img src="https://img.shields.io/static/v1?label=react Native&message=framework&color=blue&style=for-the-badge&logo=REACT"/>
@@ -33,7 +33,7 @@ Após instalar as dependências, inicie a aplicação com:
  npx expo start
 ```
 
-## ✔️ Técnicas e tecnologias utilizadas
+## ✔️ Tecnologias utilizadas
 
 - ``Expo``
 - ``React Native``
@@ -47,6 +47,18 @@ Após instalar as dependências, inicie a aplicação com:
 - [``REST Countries API``](https://restcountries.com/)
 - [``Unsplash API``](https://unsplash.com/developers)
 - [``OpenWeather API``](https://openweathermap.org/api)
+  
+
+## :hammer: Funcionalidades do projeto
+
+- `Funcionalidade 1`: Tela de login e cadastro para o usuário acessar a aplicação
+
+![Screen_Recording_20240109-165456_Expo Go](https://github.com/KatianaHanisch/N1_Mobile/assets/101157580/0d500666-7508-48c4-9acd-373fccb05b76)
+
+ 
+- `Funcionalidade 2`: Tela inicial com a lista dos paises e página de detalhes dos mesmos.
+
+![Screen_Recording_20240109-165650_Expo Go](https://github.com/KatianaHanisch/N1_Mobile/assets/101157580/abb76496-c1e7-4436-a5b7-cf61b602f03e)
 
 
 ## Desenvolvedores :octocat:
